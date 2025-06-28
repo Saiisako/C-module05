@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:09:27 by skock             #+#    #+#             */
-/*   Updated: 2025/06/28 16:33:13 by skock            ###   ########.fr       */
+/*   Updated: 2025/06/28 17:23:51 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ int	Form::getSignG(void) {return (_exec_grade);}
 
 int	Form::getExecG(void) {return (_sign_grade);}
 
-void Form::beSigned(Bureaucrat b)
+void Form::beSigned(Bureaucrat &b)
 {
 	if (_is_signed)
 	{
-		std::cout << this << std::endl;
+		std::cout << b.getName() << " couldn’t sign " << _name << " because it's already sign." << std::endl;
 		return ;
 	}
 	if (b.getGrade() <= _sign_grade)
 	{
 		_is_signed = true;
-		std::cout << "has been signed" << std::endl;
+		std::cout << _name << " has been signed" << std::endl;
 		return ;
 	}
 	else if (b.getGrade() >= _sign_grade)

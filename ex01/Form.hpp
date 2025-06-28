@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:26:13 by skock             #+#    #+#             */
-/*   Updated: 2025/06/28 16:29:36 by skock            ###   ########.fr       */
+/*   Updated: 2025/06/28 17:20:28 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ class Form
 		bool				getBool(void);
 		int					getSignG(void);
 		int					getExecG(void);
-		void				beSigned(Bureaucrat b);
+		void				beSigned(Bureaucrat &b);
 		class GradeTooHighException : public std::exception
 		{
 			virtual const char* what() const throw() {
