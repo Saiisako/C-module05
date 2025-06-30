@@ -1,47 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:09:27 by skock             #+#    #+#             */
-/*   Updated: 2025/06/30 19:13:46 by skock            ###   ########.fr       */
+/*   Updated: 2025/06/28 17:23:51 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-Form::Form() : _name("Form"), _is_signed(false), _sign_grade(150), _exec_grade(150) {}
+AForm::AForm() : _name("AForm"), _is_signed(false), _sign_grade(150), _exec_grade(150) {}
 
-Form::Form(const Form &copy) : _name(copy._name), _is_signed(copy._is_signed), _sign_grade(copy._sign_grade), _exec_grade(copy._exec_grade) {}
+AForm::AForm(const AForm &copy) : _name(copy._name), _is_signed(copy._is_signed), _sign_grade(copy._sign_grade), _exec_grade(copy._exec_grade) {}
 
-Form::~Form() {}
+AForm::~AForm() {}
 
-Form::Form(const std::string name, bool is_signed, const int sign_grade, const int exec_grade) : _name(name), _is_signed(is_signed), _sign_grade(sign_grade), _exec_grade(exec_grade)
+AForm::AForm(const std::string name, bool is_signed, const int sign_grade, const int exec_grade) : _name(name), _is_signed(is_signed), _sign_grade(sign_grade), _exec_grade(exec_grade)
 {
 	if (_sign_grade < 1)
-		throw Form::GradeTooHighException();
+		throw AForm::GradeTooHighException();
 	else if (_sign_grade > 150)
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	else if (_exec_grade < 1)
-		throw Form::GradeTooHighException();
+		throw AForm::GradeTooHighException();
 	else if (_exec_grade > 150)
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 }
 
-Form& Form::operator=(const Form &other) {return (this != &other) ? (_is_signed = other._is_signed, *this) : *this;}
+AForm& AForm::operator=(const AForm &other) {return (this != &other) ? (_is_signed = other._is_signed, *this) : *this;}
 
-const std::string	Form::getName(void) {return (_name);}
+const std::string	AForm::getName(void) const {return (_name);}
 
-bool	Form::getBool(void) {return (_is_signed);}
+bool	AForm::getBool(void) const {return (_is_signed);}
 
-int	Form::getSignG(void) {return (_sign_grade);}
+int	AForm::getSignG(void) const {return (_sign_grade);}
 
-int	Form::getExecG(void) {return (_exec_grade);}
+int	AForm::getExecG(void) const {return (_exec_grade);}
 
-void Form::beSigned(Bureaucrat &b)
+void AForm::beSigned(Bureaucrat &b)
 {
 	if (_is_signed)
 	{
@@ -55,19 +55,19 @@ void Form::beSigned(Bureaucrat &b)
 		return ;
 	}
 	else if (b.getGrade() >= _sign_grade)
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	return ;
 }
 
-std::ostream &operator<<(std::ostream &flux, Form &fraction)
+std::ostream &operator<<(std::ostream &flux, AForm &fraction)
 {
-	flux << ANSI_GRAY << fraction.getName() << ANSI_RESET << " form ";
+	flux << ANSI_GRAY << fraction.getName() << ANSI_RESET << " Aform ";
 	if (fraction.getBool())
 		flux << ANSI_GREEN << "is signed "<< ANSI_RESET;
 	else
 		flux << ANSI_RED << "is not signed "<< ANSI_RESET;
 	flux << "and need :" << std::endl;
-	flux << "- " << fraction.getExecG() << " to be execute." << std::endl;
 	flux << "- " << fraction.getSignG() << " to be signed." << std::endl;
+	flux << "- " << fraction.getExecG() << " to be execute." << std::endl;
 	return (flux);
 }

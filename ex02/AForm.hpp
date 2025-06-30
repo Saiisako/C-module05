@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,6 +13,9 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <sys/time.h>
 
 #define ANSI_RED	"\x1b[31m"
 #define ANSI_GRAY	"\x1b[90m"
@@ -21,7 +24,7 @@
 
 class Bureaucrat;
 
-class Form
+class AForm
 {
 	private:
 		const std::string	_name;
@@ -29,29 +32,30 @@ class Form
 		const int			_sign_grade;
 		const int			_exec_grade;
 	public:
-		Form();
-		~Form();
-		Form(const Form& copy);
-		Form& operator=(const Form& other);
-		Form(const std::string name, bool is_signed, const int sign_grade, const int exec_grade);
-		const std::string	getName(void);
-		bool				getBool(void);
-		int					getSignG(void);
-		int					getExecG(void);
+		AForm();
+		virtual ~AForm();
+		AForm(const AForm& copy);
+		AForm& operator=(const AForm& other);
+		AForm(const std::string name, bool is_signed, const int sign_grade, const int exec_grade);
+		const std::string	getName(void) const;
+		bool				getBool(void) const;
+		int					getSignG(void) const;
+		int					getExecG(void) const;
 		void				beSigned(Bureaucrat &b);
+		virtual int 		execute(Bureaucrat const &executor) const = 0;
 		class GradeTooHighException : public std::exception
 		{
 			virtual const char* what() const throw() {
-				return "Grade is too high.";
+				return "grade is too high.";
 			}
 		};
 		class GradeTooLowException : public std::exception
 		{
-				virtual const char* what() const throw() {
-				return "Grade is too low";
-}
+			virtual const char* what() const throw() {
+			return "grade is too low";
+			}
 		};
 };
 
-std::ostream& operator<<(std::ostream &flux, Form &fraction);
+std::ostream& operator<<(std::ostream &flux, AForm &fraction);
 
