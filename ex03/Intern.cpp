@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:08:14 by skock             #+#    #+#             */
-/*   Updated: 2025/06/30 20:57:11 by skock            ###   ########.fr       */
+/*   Updated: 2025/07/01 08:31:35 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,32 @@ Intern::~Intern() {}
 
 Intern::Intern(const Intern &copy) {*this = copy;}
 
-Intern& Intern::operator=(const Intern &other) {(void)other;}
+AForm* createShrubbery() { return new ShrubberyCreationForm(); }
+
+AForm* createRobotomy() { return new RobotomyRequestForm(); }
+
+AForm* createPresidential() { return new PresidentialPardonForm(); }
 
 AForm *Intern::makeForm(std::string f_name, std::string f_target)
 {
-		// Fonctions factory
-	AForm* createShrubbery() { return new ShrubberyCreationForm("target"); }
-	AForm* createRobotomy() { return new RobotomyRequestForm(...); }
-	AForm* createPresidential() { return new PresidentialPardonForm(...); }
+	(void)f_target;
+	AForm* (*f[])() = {createShrubbery, createRobotomy, createPresidential};
+	std::string index[] = {"ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"};
 
-	// Tableau de pointeurs vers fonctions
-	AForm* (*factories[])() = { &createShrubbery, &createRobotomy, &createPresidential };
-
-	// Utilisation
 	for (int i = 0; i < 3; ++i) {
 		if (index[i] == f_name)
-			return factories[i]();
+		{
+			std::cout << "Intern creats " << f_name << " to " << f_target << std::endl;
+			return f[i]();
+		}
 	}
-
+	std::cout << "Intern failed to create [" << f_name << "] form because ";
+	throw Intern::FormNameNotFound();
+	return (NULL);
 }
 
-	// typedef AForm * (*FormFactory)();
-
-	// AForm *createPresidential() {return (new ShrubberyCreationForm());}
-	// AForm *createShrubbery() {new RobotomyRequestForm()}
-	// AForm *createRobotomy() {new PresidentialPardonForm()}
-	
-	// for (int j = 0; j < 3; j++)
-	// {
-	// 	if (!index[j].compare(f_name))
-	// 	{
-	// 		(this->*f[j])();
-	// 		return (new);
-	// 	}
-	// }
+Intern& Intern::operator=(const Intern &other)
+{
+	(void)other;
+	return (*this);
 }

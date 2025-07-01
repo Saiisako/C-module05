@@ -6,14 +6,14 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:05:15 by skock             #+#    #+#             */
-/*   Updated: 2025/06/30 20:08:10 by skock            ###   ########.fr       */
+/*   Updated: 2025/07/01 08:16:03 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
-#include <AForm.hpp>
+#include "AForm.hpp"
 
 class Intern
 {
@@ -22,5 +22,11 @@ class Intern
 		~Intern();
 		Intern(const Intern& copy);
 		Intern& operator=(const Intern& other);
-		AForm *makeForm(std::string, std::string );
+		AForm *makeForm(std::string f_name, std::string f_target);
+		class FormNameNotFound : public std::exception
+		{
+			virtual const char* what() const throw() {
+				return "the name of the form does not exist.";
+			}
+		};
 };
