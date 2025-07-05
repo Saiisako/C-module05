@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:08:14 by skock             #+#    #+#             */
-/*   Updated: 2025/07/01 08:31:35 by skock            ###   ########.fr       */
+/*   Updated: 2025/07/01 14:10:18 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ AForm* createPresidential() { return new PresidentialPardonForm(); }
 
 AForm *Intern::makeForm(std::string f_name, std::string f_target)
 {
-	(void)f_target;
 	AForm* (*f[])() = {createShrubbery, createRobotomy, createPresidential};
 	std::string index[] = {"ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"};
 
